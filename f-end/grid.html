@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>JavaScript Shield UI Demos</title>
+    <link id="themecss" rel="stylesheet" type="text/css" href="//www.shieldui.com/shared/components/latest/css/light/all.min.css" />
+    <script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="//www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+</head>
+<body class="theme-light">
+<div id="grid"></div>
+<script type="text/javascript">
+    function createGridData(count) {
+        var data = [];
+        for (var i = 0; i < count; i++) {
+            var randomnumber = Math.floor(Math.random() * 11);
+            data.push({
+                id: i,
+                name: "item " + (i + 1 + randomnumber),
+                year: 2000 + i + randomnumber,
+                price: i + randomnumber
+            });
+        }
+        console.log(data);
+        return data;
+    }
+    $(document).ready(function () {
+        $("#grid").shieldGrid({
+            dataSource: {
+                data: createGridData(10)
+            },
+            sorting:{
+                    multiple: true
+            },
+            events: {
+                dataBound: gridDataBound
+            },
+            rowHover: false,
+            columns: [
+                { field: "id", width: "70px", title: "ID" },
+                { field: "year", title: "Year"},
+                { field: "name", title: "Item Name" },
+                { field: "price", title: "Price", format: "{0:c}" }
+            ]
+        });
+        setInterval(refreshGird, 2000)
+    });
+    function refreshGird() {
+        var grid = $("#grid").swidget(),
+            initialOptions = grid.initialOptions;
+        initialOptions.dataSource = {
+            data: createGridData(10)
+        };
+        grid.refresh(initialOptions);
+    }
+
+    function gridDataBound(e) {
+        var data = e.target.dataSource.view;
+        var rows = e.target.contentTable.find(">tbody>tr");
+        for (var i = 0; i < data.length; i++) {
+            var item = data[i];
+            if (item.price > 15) {
+                $(rows[i].cells[3]).addClass("red");
+            }
+            if (item.price < 10) {
+                $(rows[i].cells[3]).addClass("green");
+            }
+            if (item.year > 2005) {
+                $(rows[i].cells[1]).addClass("yellow");
+            }
+        }
+    }    
+</script>
+<style type="text/css">
+    .red
+    {
+        background-color: #FF7F7F;
+    }
+    .green
+    {
+        background-color: #7FFFC5;
+    }
+    .yellow
+    {
+        background-color: #DAFF7F;
+    }
+</style>
+</body>
+</html>
