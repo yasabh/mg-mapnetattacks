@@ -1,0 +1,299 @@
+@font-face {
+    font-family: "Consolas";
+    src: url("../fonts/Consolas.eot");
+    src: 
+    url("../fonts/Consolas.woff") format("woff"),
+    url("../fonts/Consolas.svg") format("svg");
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Consolas';
+    background-color: #191a1a
+}
+.no-wrap{ white-space: nowrap; }
+.stat-header{ display: none }
+
+#mapid {
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    background-color: #191a1a
+}
+
+.leaflet-control-attribution {
+    display: none !important;
+}
+
+.leaflet-popup {
+    bottom: -48px !important;
+    left: -58px !important;
+}
+
+.leaflet-popup-tip-container {
+    display: none
+}
+
+.map-overlay {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    overflow: hidden;
+    color: #dedede;
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 1px;
+}
+.map-overlay .title {
+    padding: 10px;
+    margin-bottom: 0;
+    font-size: 8pt;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.map-overlay p {
+    font-size: 0.8em;
+    margin: 7px 0;
+    text-align: left;
+}
+
+.text-count {
+    min-width: 22px
+}
+
+#functional {
+    top: 5px;
+    right: 10px;
+    width: 94px;
+    z-index: 10;
+    background-color: transparent;
+    box-shadow: none
+}
+
+#legend {
+    display: none;
+    height: 140px;
+    width: 175px;
+    margin-bottom: 10px;
+    left: 8px;
+}
+#legend .container {
+    font-size: 8pt
+}
+#legend .container .line {
+    width: 12px;
+    margin-right: 3px
+}
+
+#historical {
+    box-shadow: 0px 0px 8px #313131;
+    border-radius: 4px;
+    display: none;
+    height: 80px;
+    width: 550px;
+    overflow: visible;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 6px;
+}
+
+#historical .container {
+    margin: 6px 0
+}
+
+#filter-close {
+    display: none;
+    position: absolute;
+    padding-left: 8px;
+    right: 8px;
+    top: 3px;
+}
+
+#filter-close i:hover {
+    color: #727b84;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 1024px) {
+    .map-overlay .title{
+        font-size: 7pt
+    }
+
+    #detail {
+        height: 170px;
+        min-width: 520px;
+        margin-bottom: 6px;
+        left: 6px;
+    }
+    #detail .container {
+        font-size: 5.5pt;
+        padding: 0 8px;
+        margin-left: 0 !important
+    }
+    #detail .container p,
+    #detail .container .row {
+        margin: 7px 0;
+        text-shadow: .2px .4px .2px #dedede;
+        margin: 3px
+    }
+    #detail .container .row div {
+        padding: 0;
+        white-space: nowrap;
+        margin: 0 8px 0 0
+    }
+
+    #statistic {
+        height: 170px;
+        width: 485px;
+        margin-bottom: 6px;
+        right: 6px;
+    }
+    #statistic .container {
+        font-size: 7pt;
+        padding: 0 8px;
+        margin-left: 0 !important
+    }
+    #statistic table {
+        width: 100%;
+        font-size: 0.8em
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .map-overlay .title{
+        font-size: 9pt
+    }
+
+    #detail {
+        height: 170px;
+        min-width: 630px;
+        margin-bottom: 6px;
+        left: 6px;
+    }
+    #detail .container {
+        font-size: 7pt;
+        padding: 0 8px;
+        margin-left: 0 !important
+    }
+    #detail .container p,
+    #detail .container .row {
+        margin: 7px 0;
+        text-shadow: .2px .4px .2px #dedede;
+        margin: 3px
+    }
+    #detail .container .row div {
+        padding: 0;
+        white-space: nowrap;
+        margin: 0 8px 0 0
+    }
+
+    #statistic {
+        height: 170px;
+        width: 585px;
+        margin-bottom: 6px;
+        right: 6px;
+    }
+    #statistic .container {
+        font-size: 8.5pt;
+        padding: 0 8px;
+        margin-left: 0 !important
+    }
+    #statistic table {
+        width: 100%;
+        font-size: 0.8em
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .map-overlay .title{
+        font-size: 9pt
+    }
+
+    #detail {
+        height: 170px;
+        min-width: 720px;
+        margin-bottom: 6px;
+        left: 6px;
+    }
+    #detail .container {
+        font-size: 7.1pt;
+        padding: 0 8px;
+        margin-left: 0 !important
+    }
+    #detail .container p,
+    #detail .container .row {
+        margin: 7px 0;
+        text-shadow: .2px .4px .2px #dedede;
+        margin: 3px
+    }
+    #detail .container .row div {
+        padding: 0;
+        white-space: nowrap;
+        margin: 0 8px 0 0
+    }
+
+    #statistic {
+        height: 170px;
+        width: 680px;
+        margin-bottom: 6px;
+        right: 6px;
+    }
+    #statistic .container {
+        font-size: 9pt;
+        padding: 0 8px;
+        margin-left: 0 !important
+    }
+    #statistic table {
+        width: 100%;
+        font-size: 0.8em
+    }
+}
+
+@media screen and (min-width: 1680px) {
+    .map-overlay .title{
+        font-size: 10pt
+    }
+
+    #mapid {
+        left: 670px
+    }
+    #detail {
+        min-width: 670px;
+        display: none;
+        top: 6px;
+        left: 6px;
+    }
+    #detail .container {
+        font-size: 9pt;
+        padding: 0 8px;
+        margin-left: 0 !important
+    }
+    #detail .container p,
+    #detail .container .row {
+        margin: 7px 0;
+        text-shadow: .2px .4px .2px #dedede;
+        margin: 3px
+    }
+    #detail .container .row div {
+        padding: 0;
+        white-space: nowrap;
+        margin: 0 8px 0 0
+    }
+
+    #statistic {
+        height: 200px;
+        width: 990px;
+        margin-bottom: 6px;
+        right: 6px;
+    }
+    #statistic .container {
+        font-size: 12.5pt;
+        padding: 0 8px;
+        margin-left: 0 !important
+    }
+    #statistic table {
+        width: 100%;
+        font-size: 0.8em
+    }
+}

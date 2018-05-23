@@ -1,41 +1,45 @@
-var data = [], getAll = function(){
-  return data;
+var events = [], getAll = function(){
+  return events;
 }, get = function(timestamp){
   var dtStart = new Date(),
-   d = data.filter(function(o){
+   d = events.filter(function(o){
       return (o.timestamp == timestamp)
     })[0],
    time = new Date() - dtStart;
   if(time > 100){
-    data = [];      
+    events = [];      
     console.log(" Warning!! "
      + "Events database cleared : " + size());
   };
   return d;
 }, getTheLastSame = function(e){
-  return data.filter(function(o){
+  return events.filter(function(o){
       return (o.src.ip == e.src.ip) &&
        (o.dst.ip == e.dst.ip) &&
        (o.sigid == e.sigid);
     })[0];
-}, remove = function(timestamp){
-  data = data.filter(function(o) {
-    return o.timestamp !== timestamp;
+}, remove = function(e){
+  events = events.filter(function(o) {
+    return (o.src.ip != e.src.ip) &&
+     (o.dst.ip != e.dst.ip) &&
+     (o.sigid != e.sigid);
   });
+}, clear = function(){
+  events = [];
 }, size = function(){
-  return data.length;
+  return events.length;
 }, push = function(d){
   var e = getTheLastSame(d);
   // if exist
-  if(!!e){ remove(d.timestamp); e.count++; }
+  if(!!e){ remove(d); e.count++; }
   else{ e = d; e.count = 1; }
-  return !!data.push(e);
+  return !!events.push(e);
 }
 
 module.exports = {
   getAll: getAll,
   get: get,
-  remove: remove,
+  clear: clear,
   size: size,
   push: push
 }

@@ -1,154 +1,161 @@
 <!DOCTYPE html>
-<html lang="zh">  
+<html lang="zh">
+
 <head>
-	<meta charset="utf-8">  
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Map Attack | Mata Garuda</title>
-	<meta name="keywords" content="map,attack,d3.js,html5,javascript">
-	<meta name="description" content="">
-	<link rel="icon" href="favicon.ico" sizes="32x32" />
-	<link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
-	<!-- <link rel="stylesheet" href="./assets/css/normalize.css" /> -->
-	<link rel='stylesheet' href='./assets/css/font-awesome.css' />
-	<link rel="stylesheet" href="./assets/css/flatpickr.min.css">
-	<link rel="stylesheet" href="./assets/css/nprogress.css">
-	<link rel='stylesheet' href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' />
-	<!-- <link rel="stylesheet" href="./assets/css/plane.css" /> -->
-    <style>
-        body { margin:0; padding:0; font-family: 'Open Sans', Helvetica, sans-serif}
-        #mapid { position:absolute; top:0; bottom:0; width:100%; }
-        .leaflet-control-attribution{
-		    display: none !important;
-		}
-		.leaflet-popup {
-			bottom: -48px!important;
-			left: -58px!important;
-		}
-		.leaflet-popup-tip-container {
-			display: none
-		}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Map Attack | Mata Garuda</title>
+  <meta name="keywords" content="map,attack,d3.js,html5,javascript">
+  <meta name="description" content="">
+  <link rel="icon" href="favicon.ico" sizes="32x32" />
+  <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
+  <!-- <link rel="stylesheet" href="./assets/css/normalize.css" /> -->
+  <link rel='stylesheet' href='./assets/css/font-awesome.css' />
+  <link rel="stylesheet" href="./assets/css/flatpickr.min.css">
+  <link rel="stylesheet" href="./assets/css/nprogress.css">
+  <link rel="stylesheet" href="./assets/css/flags/flags.min.css">
+  <link rel='stylesheet' href='./assets/mapbox_v3.1.1/mapbox.css' />
+  <link rel="stylesheet" href="./assets/css/app.css">
+  <!-- <link rel="stylesheet" href="./assets/css/plane.css" /> -->
+</head>
 
-		.map-overlay {
-		  position: absolute;
-		  bottom: 0;
-		  overflow: hidden;
-		}
-		.map-overlay .title {
-		  margin: 10px;
-		}
-		.map-overlay p {
-		  font-size: 0.85em;
-		  margin: 10px;
-		  text-align: left;
-		}
-
-		#detail {
-		  height: 160px;
-		  width: 50%;
-		  background: transparent;
-		  margin-bottom: 10px;
-		  left: 10px;
-		}
-		#detail .container p {
-			/*text-shadow: .2px .4px .2px #dedede;*/
-			font-family: consolas;
-			margin: 3px
-		}
-		#legend {
-		  height: 120px;
-		  width: 180px;
-		  background: rgba(255,255,255,0.8);
-		  box-shadow: 0 0 15px rgba(0,0,0,0.2);
-		  border-radius: 2px;
-		  margin-bottom: 10px;
-		  right: 10px;
-		}
-		#legend .container p{
-		  font-size: .8em;
-		}
-		#historical {
-		  height: 80px;
-		  /*width: 630px;*/
-		  width: 540px;
-		  overflow: visible;
-		  background: rgba(255,255,255,0.8);
-		  box-shadow: 0 0 15px rgba(0,0,0,0.2);
-		  border-radius: 2px;
-		  margin: 0 auto;
-		  left: 0;
-		  right: 0;
-		  top: 5px;
-		}
-		#filter-close {
-			display: none;
-		    position: absolute;
-		    padding-left: 8px;
-		    right: 8px;
-		    top: 3px;
-		}
-		#filter-close i:hover {
-			color: #727b84;
-			cursor: pointer;
-		}
-    </style>
-</head> 
 <body>
-	<div id="mapid"></div>
-	<div class='map-overlay' id='detail'>
-		<!-- <h4 class="title">Attack Details</h4> -->
-		<div class="container"></div>
-	</div>
-	<div class='map-overlay' id='legend'>
-		<h6 class="title">Attack Legend</h6>
-		<div class="container">
-			<p><img src="./assets/img/marker_src.png" style="width: 14px"> Source</p>
-			<p><img src="./assets/img/marker_dst.png" style="width: 14px; padding: 0 3px"> Destination</p>
-			<p><hr style="background-color: red;"> High priority</p>
-			<p><hr style="background-color: yellow;"> Medium priority</p>
-			<p><hr style="background-color: green;"> Low priority</p>
-		</div>
-	</div>
-	<div class='map-overlay' id='historical'>
-		<h6 class="title">Historical filter</h6>
-		<div class="container">
-		  <div class="row">
-		    <div class="col-md-7" style="padding-right: 0">
-			    <input type="hidden" id="sigid">
-			    <input id="filter" class="form-control form-control-sm bg-dark text-white" type="text" placeholder="Filter by signature name">
-			    <div id="filter-close" class="text-white bg-dark">
-			    	<i class="fa fa-times" style="padding: 0;right: 0;"></i>
-			    </div>
-			</div>
-		    <div class="col-md-5">
-				<button id="date" style="width: 160px" class="btn btn-secondary btn-sm dropdown-toggle text-right" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <div id="mapid"></div>
+  <div class='map-overlay' id='detail'>
+    <h4 class="title">Realtime Events</h4>
+    <div class="container">
+        <div id="detail-wait" class="row">
+        </div>
+      </div>
+  </div>
+  <div class='map-overlay' id='functional'>
+    <button id="swith-mode" class="container btn btn-secondary btn-sm">
+			Realtime
+		</button>
+  </div>
+  <div class='map-overlay' id='legend'>
+    <h6 class="title">Attack Legend</h6>
+    <div class="container">
+      <p><img src="./assets/img/marker_src.png" style="width: 14px"> Source</p>
+      <p><img src="./assets/img/marker_dst.png" style="width: 15px; padding: 0 3px"> Destination</p>
+      <p><img src="./assets/img/red_line.png" class="line"> High priority</p>
+      <p><img src="./assets/img/yellow_line.png" class="line"> Medium priority</p>
+      <p><img src="./assets/img/green_line.png" class="line"> Low priority</p>
+    </div>
+  </div>
+  <div class='map-overlay' id='historical'>
+    <h6 class="title">Historical filter</h6>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-7 col-sm-7 col-md-7" style="padding-right: 0">
+          <input type="hidden" id="sigid">
+          <input id="filter" class="form-control form-control-sm bg-dark text-white" type="text" placeholder="Filter by signature name" autocomplete="off">
+          <div id="filter-close" class="text-white bg-dark">
+            <i class="fa fa-times" style="padding: 0;right: 0;"></i>
+          </div>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-5">
+          <button id="date" style="width: 160px" class="btn btn-secondary btn-sm dropdown-toggle text-right" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				</button>
-				<button id="refresh" type="button" class="btn btn-sm btn-dark">
+          <button id="refresh" type="button" class="btn btn-sm btn-dark">
 					<i class="fa fa-refresh" style="padding: 0"></i>
 				</button>
-				<!-- <button id="simulate" type="button" class="btn btn-sm btn-dark" style="padding-left: 10px">
+          <!-- <button id="simulate" type="button" class="btn btn-sm btn-dark" style="padding-left: 10px">
 					<i class="fa fa-play" style="padding: 0"></i>
 				</button> -->
-		    </div>
-		  </div>
-		</div>
-	</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='map-overlay' id='statistic'>
+    <h6 class="title"><span id="stat-date">Today</span>'s Statistics</h6>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <table>
+            <thead class="stat-header">
+              <tr>
+                <th scope="col" class="text-primary text-count no-wrap" data-toggle="tooltip" data-placement="top" title="Country Sources">
+                  <i class="fa fa-flag"></i>
+                </th>
+                <th scope="col" class="text-left text-secondary text-count">#</th>
+              </tr>
+            </thead>
+            <tbody id="top-csrc-stats">
+            </tbody>
+          </table>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <table>
+            <thead class="stat-header">
+              <tr>
+                <th scope="col" class="text-primary text-count no-wrap" data-toggle="tooltip" data-placement="top" title="Country Destinations">
+                  <i class="fa fa-flag"></i>
+                </th>
+                <th scope="col" class="text-left text-secondary text-count">#</th>
+              </tr>
+            </thead>
+            <tbody id="top-cdst-stats">
+            </tbody>
+          </table>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <table>
+            <thead class="stat-header">
+              <tr>
+                <th scope="col" class="text-primary no-wrap">IP Sources</th>
+                <th scope="col" class="text-left text-secondary text-count">#</th>
+              </tr>
+            </thead>
+            <tbody id="top-isrc-stats">
+            </tbody>
+          </table>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <table>
+            <thead class="stat-header">
+              <tr>
+                <th scope="col" class="text-primary no-wrap">IP Destinations</th>
+                <th scope="col" class="text-left text-secondary text-count">#</th>
+              </tr>
+            </thead>
+            <tbody id="top-idst-stats">
+            </tbody>
+          </table>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+          <table>
+            <thead class="stat-header">
+              <tr>
+                <th scope="col" class="text-primary no-wrap">Signatures</th>
+                <th scope="col" class="text-left text-secondary text-count">#</th>
+              </tr>
+            </thead>
+            <tbody id="top-sign-stats">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 
-	<script src="./assets/js/jquery.min.js"></script>
-	<script src="./assets/js/popper.min.js"></script>
-	<script src="./assets/js/bootstrap.min.js"></script>
-	<script src="./assets/js/nprogress.js"></script>
-	<script src="./assets/js/flatpickr.js"></script>
-	<script src="./assets/js/bootstrap3-typeahead.min.js"></script>
-	<script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
-	<script src="https://d3js.org/d3.v4.min.js"></script>
-	<script src="./assets/js/topojson.js"></script>
+  <script src="./assets/js/jquery.min.js"></script>
+  <script src="./assets/js/popper.min.js"></script>
+  <script src="./assets/js/bootstrap.min.js"></script>
+  <script src="./assets/js/nprogress.js"></script>
+  <script src="./assets/js/flatpickr.js"></script>
+  <script src="./assets/js/bootstrap3-typeahead.min.js"></script>
+  <script src='./assets/mapbox_v3.1.1/mapbox.js'></script>
+  <script src="./assets/js/d3.v4.min.js"></script>
+  <script src="./assets/js/topojson.js"></script>
 
-	<script type="text/javascript">
-		L.mapbox.accessToken = 'pk.eyJ1IjoieWFzaW5hYmRoIiwiYSI6ImNqNjh2bmRiajBsc2gzNGw3NHUzNzN1NzUifQ.wRrzBBetRlmEz1Ne7lmdUQ';
-	</script>
+  <script type="text/javascript">
+    L.mapbox.accessToken = 'pk.eyJ1IjoieWFzaW5hYmRoIiwiYSI6ImNqNjh2bmRiajBsc2gzNGw3NHUzNzN1NzUifQ.wRrzBBetRlmEz1Ne7lmdUQ';
+  </script>
 
-	<script src="./assets/js/victor.min.js" charset="utf-8"></script>
-	<script src="./assets/js/attack.min.js" charset="utf-8"></script>
-	<script src="./assets/js/app.js" charset="utf-8"></script>
+  <script src="./assets/js/victor.min.js" charset="utf-8"></script>
+  <script src="./assets/js/attack.min.js" charset="utf-8"></script>
+  <script src="./assets/js/app.js" charset="utf-8"></script>
 </body>
+
 </html>

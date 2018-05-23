@@ -1,18 +1,17 @@
-var data = [], get = function(ip){
+var iplocs = [], get = function(ip){
   var dtStart = new Date(),
-   d = data.filter(function(o){ return o.ip == ip })[0],
+   d = iplocs.filter(function(o){ return o.ip == ip })[0],
    time = new Date() - dtStart;
   if(time > 100){
-    data = [];      
+    iplocs = [];      
     console.log(" Warning!! "
      + "IP Locations database cleared : " + size());
   };
   return d;
 }, size = function(){
-  return data.length;
+  return iplocs.length;
 }, push = function(d){
-  // console.info("Data: ",data);
-  return !get(d.ip) && !!data.push(d);
+  return !get(d.ip) && !!iplocs.push(d);
 }
 
 module.exports = {

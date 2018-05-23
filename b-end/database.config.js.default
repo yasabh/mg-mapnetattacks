@@ -1,0 +1,10 @@
+// Mysql Database Configuration
+module.exports = {
+    connectionLimit: 30, //important
+    host: 'your_db_host',
+    port: '3306',
+    user: 'your_db_host_user',
+    password: 'your_db_host_password',
+    database: 'your_db_host_database',
+    debug: false
+}

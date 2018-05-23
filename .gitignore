@@ -1,5 +1,5 @@
+TALJ
 /mapdata
 /node_modules
-/plane_visualization_bak
-/wave_line
-/b-end/database.js
+/b-end/subscriber.js
+/b-end/database.config.js

@@ -1,0 +1,1 @@
+sshfs -p 2222 yasin@203.34.118.232:/home/yasin/map /Volumes/My\ Data/Projects/remotefs

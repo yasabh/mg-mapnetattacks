@@ -1,4 +1,4 @@
-var hostAndPort	= "203.34.118.40:2181";
+var hostAndPort	= "your_subscriber_host:2181";
 var topic 		= 'Mqtt-Kafka';
 var options		= {
 	// consumer group id
