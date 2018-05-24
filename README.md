@@ -4,6 +4,10 @@ Indonesian Security Incident Response Team (ID-SIRTII) has been collaborating wi
 
 The aim of the project is to provide real-time attack visualization, the application must show the user the attack information that will be related to a map. With those all obtained information, such a coordinate locations from the event are visualized on the attack map. There are five user menus in a real-time mode, the first menu is today’s statistics that inform statistical data within a current day. A second menu is a real-time event which informing the user a real-time of occurring events. The third menu is world map visualizing attacks. The fourth menu is a button to switch either a real-time mode or a historical mode. Then lastly, two buttons that enable to zoom in or zoom out to a specific location on a world map.
 
-Screenshoots
+## Screenshoots
 
+### Realtime mode
 ![alt text](https://raw.githubusercontent.com/yasabh/mg-mapnetattacks/master/screenshoots/map.png)
+
+### Historical mode
+Coming soon on documentations and screenshoots.
