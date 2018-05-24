@@ -7,9 +7,7 @@ import json
 import time
 from pprint import pprint
 
-# MQTT Address 34 46 66 68
 MQTT = sys.argv[1]
-"""!dS!rt115432"""
 
 snort_mqtt = mqtt.Client()
 snort_mqtt.connect(str(MQTT))
